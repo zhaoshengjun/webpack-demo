@@ -15,18 +15,18 @@ exports.devServer = function (options) {
       port: options.port
     },
     plugins: [
-      new webpack.HotModuleReplacementPlugin({multiStep: true})
+      new webpack.HotModuleReplacementPlugin({ multiStep: true })
     ]
-  }
+  };
 }
 exports.setupCSS = function (paths) {
   return {
     module: {
       loaders: [
-        {test:/\.css$/, loaders:['style','css?modules'], include: paths}
+        { test: /\.css$/, loaders: ['style', 'css?modules'], include: paths }
       ]
     }
-  }
+  };
 }
 
 exports.minify = function () {
@@ -41,7 +41,7 @@ exports.minify = function () {
         }
       })
     ]
-  }
+  };
 }
 
 
@@ -52,5 +52,19 @@ exports.setFreeVariable = function (key, value) {
     plugins: [
       new webpack.DefinePlugin(env)
     ]
-  }
+  };
+}
+
+exports.extractBundle = function (options) {
+  const entry = {};
+  entry[options.name] = options.entries;
+
+  return {
+    entry: entry,
+    plugins: [
+      new webpack.optimize.CommonsChunkPlugin({
+        names: [options.name, 'manifest']
+      })
+    ]
+  };
 }
