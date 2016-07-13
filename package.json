@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack ",
+    "stats": "webpack --profile --json > stats.json",
     "start": "webpack-dev-server"
   },
   "keywords": [],

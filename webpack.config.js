@@ -53,6 +53,27 @@ switch (process.env.npm_lifecycle_event) {
       parts.purifyCSS([PATHS.app])
     );
     break;
+  case 'stats':
+    config = merge(common,
+      {
+        devtool: 'source-map',
+        output: {
+          path: PATHS.build,
+          filename: '[name].[chunkhash].js',
+          chunkFilename: '[chunkhash].js'
+        }
+      },
+      parts.clean(PATHS.build),
+      parts.setFreeVariable('process.env.NODE_ENV', 'production'),
+      parts.extractBundle({
+        name: 'vendor',
+        entries:['react']
+      }),
+      parts.minify(),
+      parts.extractCSS(PATHS.style),
+      parts.purifyCSS([PATHS.app])
+    );
+    break;
   default:
     config = merge(
       common,
@@ -67,4 +88,6 @@ switch (process.env.npm_lifecycle_event) {
     );
 }
 
-module.exports = validate(config);
+module.exports = validate(config, {
+  quiet: true
+});
