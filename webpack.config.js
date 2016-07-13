@@ -31,12 +31,13 @@ switch (process.env.npm_lifecycle_event) {
       common,
       {
         devtool: 'source-map',
-        output:{
+        output: {
           path: PATHS.build,
           filename: '[name].[chunkhash].js',
-          chunkFilename:'[chunkhash].js'
+          chunkFilename: '[chunkhash].js'
         }
-      },      
+      },
+      parts.clean(PATHS.build),
       parts.setFreeVariable('process.env.NODE_ENV', 'production'),
       parts.extractBundle({
         name: 'vendor',
