@@ -1,4 +1,5 @@
 module.exports = function () {
   var element = document.createElement('h1');
-  element.innerHTML = 'Hello world';
+  element.innerText = 'Hello webpack hot reload';
+  return element;
 }
