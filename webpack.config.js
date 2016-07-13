@@ -21,6 +21,8 @@ const common = {
   },
   output: {
     path: PATHS.build,
+    // github repo
+    publicPath:'/webpack-demo/',
     filename: '[name].js'
   },
   plugins:[
